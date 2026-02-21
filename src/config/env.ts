@@ -13,7 +13,7 @@ const emptyToUndefined = (value: unknown) => {
 const optionalTrimmedString = z.preprocess(emptyToUndefined, z.string().trim()).optional().default("");
 
 const envSchema = z.object({
-  MCP_URL: z.preprocess(emptyToUndefined, z.string().trim().url()).default("http://localhost:3000"),
+  MCP_URL: z.preprocess(emptyToUndefined, z.string().trim().url()).optional().default("http://localhost:3000"),
   SENTRY_BASE_URL: z.preprocess(emptyToUndefined, z.string().trim().url()).default("https://sentry.io/api/0"),
   SENTRY_AUTH_TOKEN: optionalTrimmedString,
   SENTRY_ORG_SLUG: optionalTrimmedString,

@@ -6,7 +6,7 @@ const server = new MCPServer({
     name: "sentry-autopilot",
     title: "Sentry Autopilot",
     version: "1.0.0",
-    baseUrl: env.MCP_URL,
+    host: "0.0.0.0",
 });
 
 registerTools(server);

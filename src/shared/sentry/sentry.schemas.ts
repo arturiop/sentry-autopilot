@@ -4,6 +4,7 @@ export const sentryIssueSummarySchema = z.object({
     id: z.string(),
     shortId: z.string().optional().default(""),
     title: z.string().optional().default(""),
+    summary: z.string().optional(),
     culprit: z.string().nullable().optional(),
     permalink: z.string().nullable().optional(),
     eventCount: z.coerce.number().optional().default(0),

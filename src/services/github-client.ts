@@ -35,6 +35,29 @@ export const createGithubClient = () => {
         return (await res.json()) as T;
     };
 
+    const createPullRequest = async (args: { head: string; base?: string; title: string; body?: string; draft?: boolean }) => {
+        const raw = await request<{
+            html_url: string;
+            number: number;
+            title: string;
+        }>(`/repos/${owner}/${repo}/pulls`, {
+            method: "POST",
+            body: JSON.stringify({
+                title: args.title,
+                head: args.head,
+                base: args.base ?? defaultRef,
+                body: args.body ?? "",
+                draft: args.draft ?? false,
+            }),
+        });
+
+        return {
+            url: raw.html_url,
+            number: raw.number,
+            title: raw.title,
+        };
+    };
+
     const getFile = async (filePath: string, ref = defaultRef) => {
         const clean = filePath.replace(/^\/+/, "");
 
@@ -81,5 +104,5 @@ export const createGithubClient = () => {
         });
     };
 
-    return { request, getFile, getContext };
+    return { request, getFile, getContext, createPullRequest };
 };

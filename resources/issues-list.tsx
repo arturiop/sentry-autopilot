@@ -56,6 +56,9 @@ const IssuesList: React.FC = () => {
     const { props, isPending, sendFollowUpMessage } = useWidget<IssuesListProps>();
     const [openId, setOpenId] = useState<string | null>(null);
 
+    // UI state for Analyze button
+    const [analyzingId, setAnalyzingId] = useState<string | null>(null);
+    const [analyzedIds, setAnalyzedIds] = useState<Record<string, boolean>>({});
     const issues = useMemo(
         () =>
             (props?.issues ?? []).slice().sort((a, b) => {
@@ -156,18 +159,29 @@ const IssuesList: React.FC = () => {
                                                 <div className="flex items-center justify-end gap-2">
                                                     <button
                                                         type="button"
+                                                        disabled={!!analyzedIds[it.id] || analyzingId === it.id}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                                e.stopPropagation();
-                                                                sendFollowUpMessage(
-                                                                  `Analyze Sentry issue ${it.id}. ` +
+
+                                                            setAnalyzingId(it.id);
+                                                            setAnalyzedIds((m) => ({ ...m, [it.id]: true }));
+
+                                                            sendFollowUpMessage(
+                                                                `Analyze Sentry issue ${it.id}. ` +
                                                                     `Call tool diagnose-sentry-error with { "issueId": "${it.id}", "radius": 100 }. ` +
                                                                     `Then show: (1) why it crashed, (2) file+line, (3) a small code snippet, (4) proposed fix diff.`
-                                                                );
+                                                            ).finally(() => {
+                                                                setAnalyzingId((cur) => (cur === it.id ? null : cur));
+                                                            });
                                                         }}
-                                                        className="inline-flex items-center rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-gray-900 disabled:opacity-60"
-                                                    >
-                                                        {"Analyze"}
+                                                        className={
+                                                            "cursor-pointer inline-flex items-center rounded-xl border px-3 py-2 text-xs font-semibold disabled:opacity-60 " +
+                                                            (analyzedIds[it.id]
+                                                                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                                                                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900")
+                                                        }
+                                                        title={analyzedIds[it.id] ? "Already analyzed" : "Analyze this issue"}>
+                                                        {analyzingId === it.id ? "Analyzing…" : analyzedIds[it.id] ? "Analyzed" : "Analyze"}
                                                     </button>
 
                                                     <div
@@ -175,7 +189,7 @@ const IssuesList: React.FC = () => {
                                                             "inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 " +
                                                             "group-hover:bg-gray-50 group-hover:text-gray-800 transition-colors"
                                                         }
-                                                    aria-hidden>
+                                                        aria-hidden>
                                                         <span className="text-lg leading-none">{isOpen ? "▾" : "▸"}</span>
                                                     </div>
                                                 </div>

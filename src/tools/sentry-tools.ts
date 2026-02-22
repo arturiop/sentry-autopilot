@@ -1,6 +1,6 @@
 import { MCPServer, text, widget } from "mcp-use/server";
 import { z } from "zod";
-import { createSentryClient } from "../services/sentry-client";
+import { createSentryClient } from "../services/sentry-client.js";
 
 const client = createSentryClient();
 

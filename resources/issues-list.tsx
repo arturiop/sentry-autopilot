@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { McpUseProvider, useWidget } from "mcp-use/react";
-import { IssuesListProps } from "@/shared/sentry";
+import { IssuesListProps } from "../src/shared/sentry/sentry.schemas.js";
 
 function fmt(dt: any) {
     if (!dt) return "—";

@@ -1,5 +1,4 @@
 import { MCPServer } from "mcp-use/server";
-import { env } from "@/config/env";
 import { registerTools } from "./tools/index.js";
 
 const server = new MCPServer({

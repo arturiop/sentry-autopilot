@@ -1,5 +1,5 @@
-import { env } from "@/config/env";
-import { githubContentResponseSchema, repoContextSchema, repoFileSchema } from "@/shared/github";
+import { env } from "../config/env.js";
+import { githubContentResponseSchema, repoContextSchema, repoFileSchema } from "../shared/github/github.schemas.js";
 
 export const createGithubClient = () => {
     const baseUrl = env.GITHUB_BASE_URL;

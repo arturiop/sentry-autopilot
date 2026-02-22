@@ -1,5 +1,5 @@
-import { createGithubClient } from "@/services/github-client";
-import { createSentryClient } from "@/services/sentry-client";
+import { createGithubClient } from "../services/github-client.js";
+import { createSentryClient } from "../services/sentry-client.js";
 import z from "zod";
 import { MCPServer, text, widget } from "mcp-use/server";
 

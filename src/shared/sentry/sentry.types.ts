@@ -1,4 +1,4 @@
-import { SentryIssueSummary } from "./sentry.schemas";
+import { SentryIssueSummary } from "./sentry.schemas.js";
 
 export type SentryIssueDetail = SentryIssueSummary & {
     type?: string;

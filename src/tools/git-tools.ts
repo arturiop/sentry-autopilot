@@ -1,6 +1,6 @@
 import { MCPServer, text } from "mcp-use/server";
 import { z } from "zod";
-import { createGithubClient } from "@/services/github-client"; // <-- change if your path/name differs
+import { createGithubClient } from "../services/github-client.js";
 
 const client = createGithubClient();
 

@@ -1,5 +1,6 @@
-import { env } from "@/config/env";
-import { SentryIssueDetail, SentryIssueEvent, SentryIssueSummary } from "@/shared/sentry";
+import { env } from "../config/env.js";
+import { SentryIssueSummary } from "../shared/sentry/sentry.schemas.js";
+import { SentryIssueDetail, SentryIssueEvent } from "../shared/sentry/sentry.types.js";
 
 type SentryClientOptions = {
   baseUrl?: string;

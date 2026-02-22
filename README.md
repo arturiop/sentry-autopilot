@@ -1,4 +1,4 @@
-# 🛠️ Sentry Auto-Fixer (MCP App)
+# 🛠️ Sentry Autopilot (MCP App)
 **AI agent that turns Sentry crashes into PRs.**
 
 The lightweight **MCP app** that sits between **Sentry → GitHub → your repo** and removes the busywork of fixing recurring crashes.
